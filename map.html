@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>Карта парка</title>
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
@@ -31,9 +31,39 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.marker([47.2400865, 39.7101535]).addTo(map)
-    .bindPopup('Парк ДГТУ.<br> Студенческий парк.')
-    .openPopup();
+var LeafIcon = L.Icon.extend({
+			options: {
+				shadowUrl: '#',
+				iconSize:     [32, 37],
+				shadowSize:   [51, 37],
+				iconAnchor:   [16,37],
+				shadowAnchor: [16, 37],
+				popupAnchor:  [0, -30]
+			}
+		});
+
+
+var parkIcon = new LeafIcon({iconUrl: 'img/icon/tree.png'}),
+gymIcon = new LeafIcon({iconUrl: 'img/icon/gym.png'}),
+poolIcon = new LeafIcon({iconUrl: 'img/icon/pool.png'});
+dstuIcon = new LeafIcon({iconUrl: 'img/icon/dstu.png'}),
+templeIcon = new LeafIcon({iconUrl: 'img/icon/temple.png'}),
+headstoneIcon = new LeafIcon({iconUrl: 'img/icon/headstone.png'});
+
+
+
+
+L.marker([47.2400865, 39.7101535], {icon: parkIcon}).bindPopup("<strong>Парк ДГТУ</strong><br /> <br />Студенческий парк.").addTo(map);
+L.marker([47.23895,39.71092], {icon: poolIcon}).bindPopup("<strong>Бассейн ДГТУ</strong><br /><br />Бассейн 'Универ'").addTo(map);
+L.marker([47.24116,39.70931], {icon: gymIcon}).bindPopup("<strong>Манеж ДГТУ</strong><br /><br />Спортивный манеж ДГТУ").addTo(map);
+L.marker([47.23740, 39.71221], {icon: dstuIcon}).bindPopup("<strong>ДГТУ</strong><br /> <br />Главный корпус.").addTo(map);
+L.marker([47.23935,39.71108], {icon: templeIcon}).bindPopup("<strong>Храм</strong><br /><br />Храм святой мученицы Татианы при ДГТУ").addTo(map);
+L.marker([47.23933,39.71043], {icon: headstoneIcon}).bindPopup("<strong>Памятник</strong><br /><br />Памятник студентам и сотрудникам РИСХМ").addTo(map);
+
+
+// L.marker([47.2400865, 39.7101535]).addTo(map)
+//     .bindPopup('Парк ДГТУ.<br> Студенческий парк.')
+//     .openPopup();
   </script>
 </body>
 </html>
