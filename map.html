@@ -30,12 +30,34 @@
     </header>
     <!-- <h5><a href="index.html">Возврат на главную</a></h5> -->
     <main>
-  <div id="map"></div>
+  <div id="map">
+    <div id="objects"></div>
+    <script src="node_modules\jquery\dist\jquery.min.js"></script>
+
+
+    <script id="objecttTemplate" type="text/template">
+      <h4><%= mapitem %></h4>
+      <div class="describe"><%= describe %></div>
+    </script>
+
+    <script >
+    $(document).ready(function() {
+      $("article div").hide();
+      $("article h4").click(function () {
+                       if ($("article div").is(":hidden")) {
+                               $("article div").show("slow");
+                       } else {
+                               $("article div").hide("slow");
+                       }
+ return false;
+});
+    });
+</script>
+  </div>
     </main>
-    <script
-      src="https://code.jquery.com/jquery-2.2.4.js"
-      integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
-      crossorigin="anonymous"></script>
+
+
+
 
     <script src ="bootstrap/js/bootstrap.js"></script>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
@@ -49,38 +71,52 @@
      <script src="node_modules/leaflet-draw/dist/leaflet.draw.js"></script>
      <script src="node_modules/leaflet.measurecontrol/leaflet.measurecontrol.min.js" /></script>
 
+     <!-- <script src="leaflet-measure\src\leaflet-measure.js"></script> -->
+
     <script type="text/javascript">
-    var map = L.map('map').setView([47.2400865, 39.7101535], 17);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
+      var map = L.map('map').setView([47.2400865, 39.7101535], 17);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
 
-    var LeafIcon = L.Icon.extend({
-    			options: {
-    				shadowUrl: '#',
-    				iconSize:     [32, 37],
-    				shadowSize:   [51, 37],
-    				iconAnchor:   [16,37],
-    				shadowAnchor: [16, 37],
-    				popupAnchor:  [0, -30]
-    			}
-    		});
-    var parkIcon = new LeafIcon({iconUrl: 'img/icon/tree.png'}),
-    gymIcon = new LeafIcon({iconUrl: 'img/icon/gym.png'}),
-    poolIcon = new LeafIcon({iconUrl: 'img/icon/pool.png'});
-    dstuIcon = new LeafIcon({iconUrl: 'img/icon/dstu.png'}),
-    templeIcon = new LeafIcon({iconUrl: 'img/icon/temple.png'}),
-    headstoneIcon = new LeafIcon({iconUrl: 'img/icon/headstone.png'});
-    L.marker([47.2400865, 39.7101535], {icon: parkIcon}).bindPopup("<strong>Парк ДГТУ</strong><br /> <br />Студенческий парк.").addTo(map);
-    L.marker([47.23895,39.71092], {icon: poolIcon}).bindPopup("<strong>Бассейн ДГТУ</strong><br /><br />Бассейн 'Универ'").addTo(map);
-    L.marker([47.24116,39.70931], {icon: gymIcon}).bindPopup("<strong>Манеж ДГТУ</strong><br /><br />Спортивный манеж ДГТУ").addTo(map);
-    L.marker([47.23740, 39.71221], {icon: dstuIcon}).bindPopup("<strong>ДГТУ</strong><br /> <br />Главный корпус.").addTo(map);
-    L.marker([47.23935,39.71108], {icon: templeIcon}).bindPopup("<strong>Храм</strong><br /><br />Храм святой мученицы Татианы при ДГТУ").addTo(map);
-    L.marker([47.23933,39.71043], {icon: headstoneIcon}).bindPopup("<strong>Памятник</strong><br /><br />Памятник студентам и сотрудникам РИСХМ").addTo(map);
+      var LeafIcon = L.Icon.extend({
+      			options: {
+      				shadowUrl: '#',
+      				iconSize:     [32, 37],
+      				shadowSize:   [51, 37],
+      				iconAnchor:   [16,37],
+      				shadowAnchor: [16, 37],
+      				popupAnchor:  [0, -30]
+      			}
+      		});
+      var parkIcon = new LeafIcon({iconUrl: 'img/icon/tree.png'}),
+      gymIcon = new LeafIcon({iconUrl: 'img/icon/gym.png'}),
+      poolIcon = new LeafIcon({iconUrl: 'img/icon/pool.png'});
+      dstuIcon = new LeafIcon({iconUrl: 'img/icon/dstu.png'}),
+      templeIcon = new LeafIcon({iconUrl: 'img/icon/temple.png'}),
+      headstoneIcon = new LeafIcon({iconUrl: 'img/icon/headstone.png'});
+      L.marker([47.2400865, 39.7101535], {icon: parkIcon}).bindPopup("<strong>Парк ДГТУ</strong><br /> <br />Студенческий парк").addTo(map);
+      L.marker([47.23895,39.71092], {icon: poolIcon}).bindPopup("<strong>Бассейн ДГТУ</strong><br /><br />Бассейн 'Универ'").addTo(map);
+      L.marker([47.24116,39.70931], {icon: gymIcon}).bindPopup("<strong>Манеж ДГТУ</strong><br /><br />Спортивный манеж ДГТУ").addTo(map);
+      L.marker([47.23740, 39.71221], {icon: dstuIcon}).bindPopup("<strong>ДГТУ</strong><br /> <br />Главный корпус").addTo(map);
+      L.marker([47.23935,39.71108], {icon: templeIcon}).bindPopup("<strong>Храм</strong><br /><br />Храм святой мученицы Татианы при ДГТУ").addTo(map);
+      L.marker([47.23933,39.71043], {icon: headstoneIcon}).bindPopup("<strong>Памятник</strong><br /><br />Памятник студентам и сотрудникам РИСХМ").addTo(map);
 
-    L.control.mousePosition().addTo(map);
+      L.control.mousePosition().addTo(map);
 
-    L.Control.measureControl().addTo(map);
-      </script>
+      L.Control.measureControl().addTo(map);
+    </script>
+
+    <!-- Микро шаблон Underscore -->
+
+
+    <!-- <script src="C:\Users\Vladimir\Desktop\BackBone\js\underscore-min.js"></script> -->
+    <!-- <script src="bootstrap\js\json2.js"></script> -->
+    <script src="bootstrap\js\underscore-min.js"></script>
+    <!-- <script src="C:\Users\Vladimir\Desktop\BackBone\js\backbone-min.js"></script> -->
+    <script src="bootstrap\js\backbone.js"></script>
+    <script src="backbone_script.js"></script>
+
+
   </body>
 </html>

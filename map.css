@@ -96,3 +96,26 @@ h1 {
     max-height: 70%;
     margin: 4px;
 }
+
+.objectt-container { width:300px;
+        padding:10px;
+        border:1px solid #aaa;
+        margin:0px 0px 10px 1000px;
+        position: relative;
+        float: right;
+        /* overflow: hidden; */
+        opacity: 0.8;
+        filter: alpha(Opacity=70); /* Прозрачность в IE */
+        font-family:sans-serif;
+        color:#333;
+        background-color:#eee;
+        z-index:99999999;
+}
+
+.objectt-container h4 { margin:0;
+        font-weight:normal;
+}
+.objectt-container div { margin-top:24px;
+        font-size:14px;
+        /* display: none; */
+}
